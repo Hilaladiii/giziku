@@ -24,6 +24,7 @@ const authOptions: NextAuthOptions = {
           email: email,
           password: password,
         };
+        console.log(user);
 
         if (user) {
           return user;
@@ -37,7 +38,8 @@ const authOptions: NextAuthOptions = {
     async jwt({ token, account, user }: any) {
       if (account.provider === "credentials") {
         token.email = user.email;
-        (token.username = user.username), (token.role = user.role);
+        token.username = user.username;
+        token.role = user.role;
       }
       return token;
     },

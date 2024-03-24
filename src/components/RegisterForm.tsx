@@ -1,5 +1,4 @@
 "use client";
-
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -30,8 +29,14 @@ export default function RegisterForm() {
       password: "",
     },
   });
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    const response = await fetch("http://localhost:3000/api/register", {
+      method: "POST",
+      body: JSON.stringify(values),
+    });
+
+    const res = await response.json();
+    console.log(res);
   }
   return (
     <Form {...form}>
@@ -80,7 +85,7 @@ export default function RegisterForm() {
           )}
         />
         <Button type="submit" className="w-full">
-          Login
+          Register
         </Button>
       </form>
       <div className="flex flex-row mt-5 justify-center items-center gap-1">
