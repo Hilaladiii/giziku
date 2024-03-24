@@ -28,8 +28,14 @@ export default function LoginForm() {
       password: "",
     },
   });
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    const { email, password } = values;
+    await signIn("credentials", {
+      email,
+      password,
+      callbackUrl: "/",
+      redirect: true,
+    });
   }
   return (
     <Form {...form}>
