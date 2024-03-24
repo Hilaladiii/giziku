@@ -10,7 +10,7 @@ datasource db {
 model User{
   username String @id @db.VarChar(15)
   email String @db.VarChar(50) @unique 
-  password String @db.VarChar(20)
+  password String @db.VarChar(100)
   ingredients Ingredient[]
 }
 
