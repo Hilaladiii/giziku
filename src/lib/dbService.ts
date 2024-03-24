@@ -2,7 +2,7 @@ import { UserType } from "@/types/user.type";
 import { prisma } from "./prisma";
 import bcryptjs from "bcryptjs";
 
-export async function Register(userData: UserType) {
+export async function signUp(userData: UserType) {
   try {
     const user = await prisma.user.findUnique({
       where: {
@@ -36,5 +36,39 @@ export async function Register(userData: UserType) {
       message: "Failed to register your account",
       status: 500,
     };
+  }
+}
+
+export async function signIn(userData: { email: string; password: string }) {
+  try {
+    const user = await prisma.user.findUnique({
+      where: {
+        email: userData.email,
+      },
+      select: {
+        username: true,
+        email: true,
+        password: true,
+      },
+    });
+    if (user) {
+      const passwordVerified = await bcryptjs.compare(
+        userData.password,
+        user.password
+      );
+      if (passwordVerified) {
+        return {
+          username: user.username,
+          email: user.email,
+        };
+      } else {
+        return null;
+      }
+    } else {
+      return null;
+    }
+  } catch (error) {
+    console.log(error);
+    return null;
   }
 }
