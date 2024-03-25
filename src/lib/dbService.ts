@@ -4,7 +4,7 @@ import bcryptjs from "bcryptjs";
 
 export async function signUp(userData: UserType) {
   try {
-    const user = await prisma.user.findUnique({
+    const email = await prisma.user.findUnique({
       where: {
         email: userData.email,
       },
@@ -12,10 +12,24 @@ export async function signUp(userData: UserType) {
         email: true,
       },
     });
-    if (user) {
+    const username = await prisma.user.findUnique({
+      where: {
+        username: userData.username,
+      },
+      select: {
+        username: true,
+      },
+    });
+    if (email) {
       return {
         status: 400,
         message: "User with this email already exists ",
+      };
+    }
+    if (username) {
+      return {
+        status: 400,
+        message: "Username already in used",
       };
     }
     userData.password = await bcryptjs.hash(userData.password, 10);
