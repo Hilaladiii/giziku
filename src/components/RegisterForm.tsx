@@ -12,7 +12,9 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useToast } from "./ui/use-toast";
 import Link from "next/link";
+import { useState } from "react";
 
 const formSchema = z.object({
   username: z.string().min(5, "minimum username is 5 characters").max(50),
@@ -21,6 +23,7 @@ const formSchema = z.object({
 });
 
 export default function RegisterForm() {
+  const { toast } = useToast();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -30,13 +33,24 @@ export default function RegisterForm() {
     },
   });
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const response = await fetch("http://localhost:3000/api/register", {
-      method: "POST",
-      body: JSON.stringify(values),
-    });
+    try {
+      const response = await fetch("http://localhost:3000/api/register", {
+        method: "POST",
+        body: JSON.stringify(values),
+      });
 
-    const res = await response.json();
-    console.log(res);
+      const res = await response.json();
+      console.log(res);
+      toast({
+        variant: res.status == 400 ? "destructive" : "default",
+        description: res.message,
+      });
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        description: "Failed to register your account",
+      });
+    }
   }
   return (
     <Form {...form}>
