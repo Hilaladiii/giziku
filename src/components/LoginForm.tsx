@@ -14,6 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
+import { toast } from "./ui/use-toast";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -30,12 +31,22 @@ export default function LoginForm() {
   });
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const { email, password } = values;
-    await signIn("credentials", {
-      email,
-      password,
-      callbackUrl: "/",
-      redirect: true,
-    });
+    try {
+      const response: any = await signIn("credentials", {
+        email,
+        password,
+        redirect: true,
+        callbackUrl: "/dashboard",
+      });
+      if (response.status === 401) {
+        toast({
+          variant: "destructive",
+          description: "email or password incorrect",
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
   return (
     <Form {...form}>
