@@ -2,7 +2,7 @@
 CREATE TABLE `User` (
     `username` VARCHAR(15) NOT NULL,
     `email` VARCHAR(50) NOT NULL,
-    `password` VARCHAR(20) NOT NULL,
+    `password` VARCHAR(100) NOT NULL,
 
     UNIQUE INDEX `User_email_key`(`email`),
     PRIMARY KEY (`username`)
@@ -12,6 +12,7 @@ CREATE TABLE `User` (
 CREATE TABLE `Ingredient` (
     `code` VARCHAR(5) NOT NULL,
     `name` VARCHAR(50) NOT NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `username` VARCHAR(15) NOT NULL,
 
     PRIMARY KEY (`code`)
