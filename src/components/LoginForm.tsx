@@ -15,13 +15,15 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { toast } from "./ui/use-toast";
+import { useSearchParams } from "next/navigation";
 
 const formSchema = z.object({
   email: z.string().email(),
   password: z.string().min(8, "minimum password is 8 characters"),
 });
-
 export default function LoginForm() {
+  const getCallback = useSearchParams();
+  const callbackUrl = getCallback.get("callbacks");
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -32,13 +34,14 @@ export default function LoginForm() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const { email, password } = values;
     try {
-      const response: any = await signIn("credentials", {
+      const response = await signIn("credentials", {
         email,
         password,
         redirect: true,
-        callbackUrl: "/dashboard",
+        callbackUrl: callbackUrl || "/",
       });
-      if (response.status === 401) {
+      console.log(response);
+      if (response?.status === 401) {
         toast({
           variant: "destructive",
           description: "email or password incorrect",
@@ -46,6 +49,10 @@ export default function LoginForm() {
       }
     } catch (error) {
       console.log(error);
+      toast({
+        variant: "destructive",
+        description: (error as TypeError).message,
+      });
     }
   }
   return (
