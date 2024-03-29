@@ -1,4 +1,4 @@
-import { signUp } from "@/lib/dbService";
+import { signUp } from "@/lib/DBService/dbUser";
 
 import { NextRequest, NextResponse } from "next/server";
 

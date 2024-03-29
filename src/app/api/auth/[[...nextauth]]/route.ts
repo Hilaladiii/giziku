@@ -1,10 +1,12 @@
 import CredentialsProvider from "next-auth/providers/credentials";
 import NextAuth from "next-auth/next";
 import { NextAuthOptions } from "next-auth";
-import { signIn } from "@/lib/dbService";
-const authOptions: NextAuthOptions = {
+import { signIn } from "@/lib/DBService/dbUser";
+
+export const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
+    maxAge: 24 * 60 * 60,
   },
   secret: process.env.NEXT_AUTH_SECRET,
   providers: [
@@ -27,7 +29,7 @@ const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, account, user }: any) {
+    async jwt({ token, account, user }) {
       if (account?.provider === "credentials") {
         token.email = user.email;
         token.name = user.username;
@@ -35,11 +37,12 @@ const authOptions: NextAuthOptions = {
       console.log(token);
       return token;
     },
-    async session({ session, token }: any) {
-      if ("email" in token) {
+    async session({ session, token }) {
+      session.user = session.user || {};
+      if (session && "email" in token) {
         session.user.email = token.email;
       }
-      if ("name" in token) {
+      if (session && "name" in token) {
         session.user.name = token.name;
       }
       console.log(session);
