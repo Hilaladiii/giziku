@@ -6,4 +6,4 @@ export function mainMiddleware(req: NextRequest) {
   return NextResponse.next();
 }
 
-export default withAuth(mainMiddleware, ["/dashboard"]);
+export default withAuth(mainMiddleware, ["/dashboard", "/menu"]);
