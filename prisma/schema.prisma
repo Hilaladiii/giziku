@@ -10,22 +10,20 @@ datasource db {
 model User{
   username String @id @db.VarChar(15)
   email String @db.VarChar(50) @unique 
-  password String @db.VarChar(100)
-  ingredients Ingredient[]
+  password String @db.VarChar(100)   
+  menus AddMenu[]
 }
-
-model Ingredient{
-  code String @id @db.VarChar(5)
-  name String @db.VarChar(50) 
-  createdAt DateTime @default(now())  
-  user User @relation(fields: [username], references: [username])
+model AddMenu{
+  user User @relation(fields: [username], references: [username])  
   username String @db.VarChar(15)
-  composition Composition?
+  menu Menu @relation(fields: [code], references: [code])
+  code String @db.VarChar(5)
+  createdAt DateTime @default(now()) 
+  @@id([username, code])
 }
-
-model Composition{
-  ingredientCode String @id @db.VarChar(5)
-  ingredient Ingredient @relation(fields: [ingredientCode], references: [code])
+model Menu{
+  code String @id @db.VarChar(5)
+  name String @db.VarChar(50)     
   air Float?
   energi Float?
   protein Float?
@@ -45,5 +43,6 @@ model Composition{
   karTot Float?
   thiamin Float?
   riboflavin Float?
-  niasin Float?  
+  niasin Float?    
+  addMenus AddMenu[]
 }

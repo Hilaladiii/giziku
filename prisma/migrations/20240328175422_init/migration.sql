@@ -9,18 +9,18 @@ CREATE TABLE `User` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `Ingredient` (
-    `code` VARCHAR(5) NOT NULL,
-    `name` VARCHAR(50) NOT NULL,
-    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+CREATE TABLE `AddMenu` (
     `username` VARCHAR(15) NOT NULL,
+    `code` VARCHAR(5) NOT NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 
-    PRIMARY KEY (`code`)
+    PRIMARY KEY (`username`, `code`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `Composition` (
-    `ingredientCode` VARCHAR(5) NOT NULL,
+CREATE TABLE `Menu` (
+    `code` VARCHAR(5) NOT NULL,
+    `name` VARCHAR(50) NOT NULL,
     `air` DOUBLE NULL,
     `energi` DOUBLE NULL,
     `protein` DOUBLE NULL,
@@ -42,11 +42,11 @@ CREATE TABLE `Composition` (
     `riboflavin` DOUBLE NULL,
     `niasin` DOUBLE NULL,
 
-    PRIMARY KEY (`ingredientCode`)
+    PRIMARY KEY (`code`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- AddForeignKey
-ALTER TABLE `Ingredient` ADD CONSTRAINT `Ingredient_username_fkey` FOREIGN KEY (`username`) REFERENCES `User`(`username`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `AddMenu` ADD CONSTRAINT `AddMenu_username_fkey` FOREIGN KEY (`username`) REFERENCES `User`(`username`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `Composition` ADD CONSTRAINT `Composition_ingredientCode_fkey` FOREIGN KEY (`ingredientCode`) REFERENCES `Ingredient`(`code`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `AddMenu` ADD CONSTRAINT `AddMenu_code_fkey` FOREIGN KEY (`code`) REFERENCES `Menu`(`code`) ON DELETE RESTRICT ON UPDATE CASCADE;
