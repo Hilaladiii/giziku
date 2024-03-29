@@ -13,6 +13,8 @@ const menuReducer = (state: compositionType[], action: ActionMenuType) => {
   switch (action.type) {
     case "ADD_MENU":
       return [...state, action.payload];
+    case "RESET_MENU":
+      return [];
     default:
       return state;
   }
