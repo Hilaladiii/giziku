@@ -2,10 +2,7 @@ import { z } from "zod";
 
 export const compositionSchema = z.object({
   name: z.string().min(5, "min characters 5").max(50, "max characters 50"),
-  ingredientCode: z
-    .string()
-    .max(5, "max character 5")
-    .min(5, "min charachter 5"),
+  code: z.string().max(5, "max character 5").min(5, "min charachter 5"),
   air: z.coerce.number().nonnegative(),
   energi: z.coerce.number().nonnegative(),
   protein: z.coerce.number().nonnegative(),
