@@ -1,8 +1,8 @@
-import { UserType } from "@/types/user.type";
-import { prisma } from "./prisma";
+import { userType } from "@/types/userSchema";
+import { prisma } from "../prisma";
 import bcryptjs from "bcryptjs";
 
-export async function signUp(userData: UserType) {
+export async function signUp(userData: userType) {
   try {
     const email = await prisma.user.findUnique({
       where: {
@@ -45,7 +45,6 @@ export async function signUp(userData: UserType) {
       status: 201,
     };
   } catch (error) {
-    console.log(error);
     return {
       message: "Failed to register your account",
       status: 500,
