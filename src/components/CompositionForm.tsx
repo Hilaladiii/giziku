@@ -13,8 +13,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { compositionSchema } from "@/types/compositionSchema";
+import { useMenuDispatch } from "@/contexts/MenuContext";
 
 export default function CompositionForm() {
+  const dispatch = useMenuDispatch();
   const form = useForm<z.infer<typeof compositionSchema>>({
     resolver: zodResolver(compositionSchema),
     defaultValues: {
@@ -42,24 +44,19 @@ export default function CompositionForm() {
       vitC: 0,
     },
   });
-  async function onSubmit(values: z.infer<typeof compositionSchema>) {
-    console.log(values);
-    try {
-      const response = await fetch("http://localhost:3000/api/addMenu", {
-        method: "POST",
-        body: JSON.stringify(values),
-      });
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-    }
+  function onSubmit(values: z.infer<typeof compositionSchema>) {
+    dispatch({
+      type: "ADD_MENU",
+      payload: values,
+    });
   }
+  if (form.formState.isSubmitSuccessful) form.reset();
 
   return (
     <Form {...form}>
       <div className="mb-5">
-        <h1 className="font-bold text-3xl">Form Pengisian Data Bahan</h1>
-        <p className="text-md text-zinc-600">
+        <h1 className="font-bold text-2xl">Form Pengisian Data Bahan</h1>
+        <p className="text-sm text-zinc-600">
           Masukkan data bahan secara teliti yaa...
         </p>
       </div>
@@ -339,8 +336,12 @@ export default function CompositionForm() {
             )}
           />
         </div>
-        <Button type="submit" className="flex mx-auto">
-          Submit Data Menu
+        <Button
+          type="submit"
+          className="flex mx-auto"
+          disabled={form.formState.isSubmitting}
+        >
+          {form.formState.isSubmitting ? "Loading..." : "Add Data Menu"}
         </Button>
       </form>
     </Form>
