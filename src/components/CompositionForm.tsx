@@ -21,7 +21,7 @@ export default function CompositionForm() {
     resolver: zodResolver(compositionSchema),
     defaultValues: {
       name: "",
-      ingredientCode: "",
+      code: "",
       air: 0,
       abu: 0,
       besi: 0,
@@ -77,7 +77,7 @@ export default function CompositionForm() {
           />
           <FormField
             control={form.control}
-            name="ingredientCode"
+            name="code"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Kode</FormLabel>
