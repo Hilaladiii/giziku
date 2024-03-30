@@ -4,9 +4,6 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   const userData = await req.json();
-  const response = await signUp(userData);
-  return NextResponse.json({
-    status: response.status,
-    message: response.message,
-  });
+  const res = await signUp(userData);
+  return NextResponse.json(res);
 }
