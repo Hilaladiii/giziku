@@ -9,7 +9,6 @@ const menuContext = createContext<compositionType[]>([]);
 const menuDispatch = createContext<Dispatch<ActionMenuType>>(() => {});
 
 const menuReducer = (state: compositionType[], action: ActionMenuType) => {
-  console.log(action.payload);
   switch (action.type) {
     case "ADD_MENU":
       return [...state, action.payload];
