@@ -259,19 +259,6 @@ export default function CompositionForm() {
           />
           <FormField
             control={form.control}
-            name="vitC"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Vit-C</FormLabel>
-                <FormControl>
-                  <Input {...field} type="number" />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
             name="bKar"
             render={({ field }) => (
               <FormItem>
@@ -328,6 +315,19 @@ export default function CompositionForm() {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Niasin</FormLabel>
+                <FormControl>
+                  <Input {...field} type="number" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="vitC"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Vit-C</FormLabel>
                 <FormControl>
                   <Input {...field} type="number" />
                 </FormControl>
