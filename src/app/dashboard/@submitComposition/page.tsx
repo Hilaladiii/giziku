@@ -30,7 +30,6 @@ export default function SubmitComposition() {
   };
   return (
     <>
-      console.log(res);
       <Table className="max-w-[60rem] mx-auto mt-10">
         <TableCaption>
           A list of your menu that you will enter into the database.
