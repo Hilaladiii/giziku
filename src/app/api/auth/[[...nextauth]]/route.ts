@@ -6,7 +6,7 @@ import { signIn } from "@/lib/DBService/dbUser";
 export const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
-    maxAge: 24 * 60 * 60,
+    maxAge: 30 * 60,
   },
   secret: process.env.NEXT_AUTH_SECRET,
   providers: [
