@@ -5,10 +5,6 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function isTokenExpired(exp: number): boolean {
-  const currentTime = new Date().getDate();
-  const expiredTime = new Date(Number(exp) * 1000).getDate();
-  console.log(currentTime);
-  console.log(expiredTime);
-  return expiredTime < currentTime;
+export function toFixedFloat(data: number) {
+  return parseFloat(data.toFixed(3));
 }
