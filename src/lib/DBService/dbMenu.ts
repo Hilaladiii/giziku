@@ -1,38 +1,13 @@
 import { prisma } from "../prisma";
-import { addMenuType, compositionType } from "@/types/compositionSchema";
+import { AddMenuType, MenuType } from "@/types/menuSchema";
 import { toFixedFloat } from "../utils";
 
-export async function AddMenus(menuData: compositionType[]) {
-  const menuDatas = menuData.map((menu) => ({
-    code: menu.code,
-    name: menu.name,
-    air: menu.air,
-    abu: menu.abu,
-    besi: menu.besi,
-    bKar: menu.bKar,
-    energi: menu.energi,
-    fosfor: menu.fosfor,
-    kalium: menu.kalium,
-    kalsium: menu.kalsium,
-    karTot: menu.karTot,
-    kh: menu.kh,
-    lemak: menu.lemak,
-    natrium: menu.natrium,
-    niasin: menu.niasin,
-    protein: menu.protein,
-    riboflavin: menu.riboflavin,
-    seng: menu.seng,
-    serat: menu.serat,
-    tembaga: menu.tembaga,
-    thiamin: menu.thiamin,
-    vitC: menu.vitC,
-  }));
+export async function AddMenus(menuData: MenuType[]) {
   try {
     const res = await prisma.menu.createMany({
-      data: menuDatas,
+      data: menuData,
       skipDuplicates: true,
     });
-    console.log(res);
     if (res.count == 0) {
       return {
         status: 400,
@@ -51,9 +26,27 @@ export async function AddMenus(menuData: compositionType[]) {
   }
 }
 
-export async function getAllMenus() {
+export async function getAllMenus({
+  query,
+  currPage,
+}: {
+  query: string;
+  currPage: number;
+}) {
+  const offset = (currPage - 1) * 5;
   try {
-    const MenuDatas = await prisma.menu.findMany();
+    const MenuDatas = await prisma.menu.findMany({
+      skip: offset,
+      take: 5,
+      where: {
+        nama: {
+          contains: query,
+        },
+      },
+      orderBy: {
+        nama: "asc",
+      },
+    });
     return {
       status: 200,
       message: "success to get all menus",
@@ -68,7 +61,24 @@ export async function getAllMenus() {
   }
 }
 
-export async function addMenuUser(AddMenuData: addMenuType[], berat: number[]) {
+export async function getMenuPages(query: string) {
+  try {
+    const menu = await prisma.menu.count({
+      where: {
+        nama: {
+          contains: query,
+        },
+      },
+    });
+
+    const totalPage = Math.ceil(Number(menu) / 10);
+    return totalPage;
+  } catch (error) {
+    return (error as TypeError).name;
+  }
+}
+
+export async function addMenuUser(AddMenuData: AddMenuType[], berat: number[]) {
   const AddMenuDatas = AddMenuData.map((addMenu, index: number) => ({
     code: addMenu.code,
     username: addMenu.username,
@@ -84,6 +94,7 @@ export async function addMenuUser(AddMenuData: addMenuType[], berat: number[]) {
       message: "Success to create your menu",
     };
   } catch (error) {
+    console.log(error);
     return {
       status: 500,
       message: (error as TypeError).name,
@@ -114,8 +125,22 @@ export async function getMenusUser({ name }: { name: string }) {
       },
     });
 
+    const data = await prisma.addMenu.findMany({
+      where: {
+        username: name,
+      },
+      select: {
+        code: true,
+        berat: true,
+        menu: true,
+      },
+    });
+
+    console.log(data);
+    console.log(res);
+
     const resDataCalculation = res.map((item, index: number) => ({
-      name: item.name,
+      nama: item.nama,
       air: toFixedFloat((item.air * berat[index]) / 100),
       energi: toFixedFloat((item.energi * berat[index]) / 100),
       protein: toFixedFloat((item.protein * berat[index]) / 100),
@@ -130,12 +155,14 @@ export async function getMenusUser({ name }: { name: string }) {
       kalium: toFixedFloat((item.kalium * berat[index]) / 100),
       tembaga: toFixedFloat((item.tembaga * berat[index]) / 100),
       seng: toFixedFloat((item.seng * berat[index]) / 100),
-      bKar: toFixedFloat((item.bKar * berat[index]) / 100),
-      karTot: toFixedFloat((item.karTot * berat[index]) / 100),
+      retinol: toFixedFloat((item.retinol * berat[index]) / 100),
+      bKaroten: toFixedFloat((item.bKaroten * berat[index]) / 100),
+      karotenTotal: toFixedFloat((item.karotenTotal * berat[index]) / 100),
       thiamin: toFixedFloat((item.thiamin * berat[index]) / 100),
       riboflavin: toFixedFloat((item.riboflavin * berat[index]) / 100),
       niasin: toFixedFloat((item.niasin * berat[index]) / 100),
-      vitC: toFixedFloat((item.vitC * berat[index]) / 100),
+      vitaminC: toFixedFloat((item.vitaminC * berat[index]) / 100),
+      bdd: toFixedFloat((item.bdd * berat[index]) / 100),
     }));
     const totalCalculation = {
       air: toFixedFloat(
@@ -180,11 +207,14 @@ export async function getMenusUser({ name }: { name: string }) {
       seng: toFixedFloat(
         resDataCalculation.reduce((acc, item) => acc + item.seng, 0)
       ),
-      bKar: toFixedFloat(
-        resDataCalculation.reduce((acc, item) => acc + item.bKar, 0)
+      retinol: toFixedFloat(
+        resDataCalculation.reduce((acc, item) => acc + item.retinol, 0)
       ),
-      karTot: toFixedFloat(
-        resDataCalculation.reduce((acc, item) => acc + item.karTot, 0)
+      bKaroten: toFixedFloat(
+        resDataCalculation.reduce((acc, item) => acc + item.bKaroten, 0)
+      ),
+      karotenTotal: toFixedFloat(
+        resDataCalculation.reduce((acc, item) => acc + item.karotenTotal, 0)
       ),
       thiamin: toFixedFloat(
         resDataCalculation.reduce((acc, item) => acc + item.thiamin, 0)
@@ -195,8 +225,11 @@ export async function getMenusUser({ name }: { name: string }) {
       niasin: toFixedFloat(
         resDataCalculation.reduce((acc, item) => acc + item.niasin, 0)
       ),
-      vitC: toFixedFloat(
-        resDataCalculation.reduce((acc, item) => acc + item.vitC, 0)
+      vitaminC: toFixedFloat(
+        resDataCalculation.reduce((acc, item) => acc + item.vitaminC, 0)
+      ),
+      bdd: toFixedFloat(
+        resDataCalculation.reduce((acc, item) => acc + item.bdd, 0)
       ),
     };
     return {
