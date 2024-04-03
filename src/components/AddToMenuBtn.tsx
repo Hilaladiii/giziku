@@ -1,8 +1,8 @@
 "use client";
 import { useMenuUserDispatch } from "@/contexts/MenuUserContext";
-import { addMenuType } from "@/types/compositionSchema";
-import { Button } from "../ui/button";
-export default function AddToMenuBtn({ menu }: { menu: addMenuType }) {
+import { AddMenuType } from "@/types/menuSchema";
+import { Button } from "./ui/button";
+export default function AddToMenuBtn({ menu }: { menu: AddMenuType }) {
   const dispatch = useMenuUserDispatch();
   return (
     <form
