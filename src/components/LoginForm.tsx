@@ -12,7 +12,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { toast } from "./ui/use-toast";
 import { useSearchParams } from "next/navigation";
@@ -40,7 +39,6 @@ export default function LoginForm() {
         redirect: true,
         callbackUrl: callbackUrl || "/",
       });
-      console.log(response);
       if (response?.status === 401) {
         toast({
           variant: "destructive",
@@ -48,10 +46,9 @@ export default function LoginForm() {
         });
       }
     } catch (error) {
-      console.log(error);
       toast({
         variant: "destructive",
-        description: (error as TypeError).message,
+        description: (error as TypeError).name,
       });
     }
   }
@@ -92,15 +89,6 @@ export default function LoginForm() {
           Login
         </Button>
       </form>
-      <div className="flex flex-row mt-5 justify-center items-center gap-1">
-        <p className="text-sm">belum memiliki akun?</p>
-        <Link
-          href="/register"
-          className="text-sm text-zinc-700 hover:text-zinc-500"
-        >
-          Register
-        </Link>
-      </div>
     </Form>
   );
 }
