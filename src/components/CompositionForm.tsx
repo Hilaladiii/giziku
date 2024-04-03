@@ -12,25 +12,24 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { compositionSchema } from "@/types/compositionSchema";
+import { menuSchema } from "@/types/menuSchema";
 import { useMenuDispatch } from "@/contexts/MenuContext";
 
 export default function CompositionForm() {
   const dispatch = useMenuDispatch();
-  const form = useForm<z.infer<typeof compositionSchema>>({
-    resolver: zodResolver(compositionSchema),
+  const form = useForm<z.infer<typeof menuSchema>>({
+    resolver: zodResolver(menuSchema),
     defaultValues: {
-      name: "",
-      code: "",
+      nama: "",
       air: 0,
       abu: 0,
       besi: 0,
-      bKar: 0,
+      bKaroten: 0,
       energi: 0,
       fosfor: 0,
       kalium: 0,
       kalsium: 0,
-      karTot: 0,
+      karotenTotal: 0,
       kh: 0,
       lemak: 0,
       natrium: 0,
@@ -41,10 +40,12 @@ export default function CompositionForm() {
       serat: 0,
       tembaga: 0,
       thiamin: 0,
-      vitC: 0,
+      vitaminC: 0,
+      bdd: 0,
+      retinol: 0,
     },
   });
-  function onSubmit(values: z.infer<typeof compositionSchema>) {
+  function onSubmit(values: z.infer<typeof menuSchema>) {
     dispatch({
       type: "ADD_MENU",
       payload: values,
@@ -64,25 +65,12 @@ export default function CompositionForm() {
         <div className="grid grid-cols-10 gap-6">
           <FormField
             control={form.control}
-            name="name"
+            name="nama"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Nama</FormLabel>
                 <FormControl>
                   <Input placeholder="Nama Bahan" {...field} type="text" />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="code"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Kode</FormLabel>
-                <FormControl>
-                  <Input placeholder="MT-887" {...field} type="text" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -233,6 +221,19 @@ export default function CompositionForm() {
           />
           <FormField
             control={form.control}
+            name="kalium"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Kalium</FormLabel>
+                <FormControl>
+                  <Input {...field} type="number" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
             name="tembaga"
             render={({ field }) => (
               <FormItem>
@@ -259,7 +260,20 @@ export default function CompositionForm() {
           />
           <FormField
             control={form.control}
-            name="bKar"
+            name="retinol"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Retinol</FormLabel>
+                <FormControl>
+                  <Input {...field} type="number" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="bKaroten"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>bKar</FormLabel>
@@ -272,7 +286,7 @@ export default function CompositionForm() {
           />
           <FormField
             control={form.control}
-            name="karTot"
+            name="karotenTotal"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>karTot</FormLabel>
@@ -324,10 +338,23 @@ export default function CompositionForm() {
           />
           <FormField
             control={form.control}
-            name="vitC"
+            name="vitaminC"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Vit-C</FormLabel>
+                <FormControl>
+                  <Input {...field} type="number" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="bdd"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>BDD</FormLabel>
                 <FormControl>
                   <Input {...field} type="number" />
                 </FormControl>
