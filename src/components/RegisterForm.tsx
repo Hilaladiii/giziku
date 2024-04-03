@@ -92,15 +92,6 @@ export default function RegisterForm() {
           Register
         </Button>
       </form>
-      <div className="flex flex-row mt-5 justify-center items-center gap-1">
-        <p className="text-sm">sudah memiliki akun?</p>
-        <Link
-          href="/login"
-          className="text-sm text-zinc-700 hover:text-zinc-500"
-        >
-          Login
-        </Link>
-      </div>
     </Form>
   );
 }
