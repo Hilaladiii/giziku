@@ -1,23 +1,33 @@
-import { addMenuType, compositionType } from "@/types/compositionSchema";
+import { MenuType, AddMenuType } from "@/types/menuSchema";
 
-export async function getAllMenus() {
-  const data = await fetch("http://localhost:3000/api/getMenu", {
-    cache: "no-store",
-  });
+export async function getAllMenus({
+  query,
+  page,
+}: {
+  query: string;
+  page: number;
+}) {
+  const data = await fetch(
+    `http://localhost:3000/api/getMenu?query=${query}&page=${page}`,
+    {
+      cache: "no-store",
+    }
+  );
   const menuData = await data.json();
   return menuData;
 }
 
-export async function SubmitAllMenus(menuData: compositionType[]) {
+export async function SubmitAllMenus(menuData: MenuType[]) {
   const res = await fetch("http://localhost:3000/api/addMenu", {
     method: "POST",
     body: JSON.stringify(menuData),
   });
-  return res.json();
+  const response = await res.json();
+  return response;
 }
 
 export async function AddMenuByUser(
-  AddMenuDataUser: addMenuType[],
+  AddMenuDataUser: AddMenuType[],
   berat: number[]
 ) {
   const data = {
