@@ -19,7 +19,6 @@ export default function MyMenuPage() {
   const { toast } = useToast();
   const menuUser = useMenuUser();
   const dispatch = useMenuUserDispatch();
-  console.log(menuUser);
   const [berat, setBerat] = useState(new Array(menuUser.length).fill(""));
 
   const handleChangeWeight = (index: number, value: number) => {
@@ -42,7 +41,6 @@ export default function MyMenuPage() {
       return;
     }
     const res = await AddMenuByUser(menuUser, berat);
-    console.log(res);
     toast({
       title: res.status == 500 ? "Error" : "Success",
       description: res.message,

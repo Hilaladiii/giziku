@@ -23,7 +23,6 @@ export const authOptions: NextAuthOptions = {
           password: string;
         };
         const user: any = await signIn({ email, password });
-        console.log(user);
         return user;
       },
     }),
@@ -34,7 +33,6 @@ export const authOptions: NextAuthOptions = {
         token.email = user.email;
         token.name = user.username;
       }
-      console.log(token);
       return token;
     },
     async session({ session, token }) {
@@ -45,7 +43,6 @@ export const authOptions: NextAuthOptions = {
       if (session && "name" in token) {
         session.user.name = token.name;
       }
-      console.log(session);
       return session;
     },
   },

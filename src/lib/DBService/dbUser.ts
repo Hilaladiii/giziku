@@ -81,7 +81,6 @@ export async function signIn(userData: { email: string; password: string }) {
       return null;
     }
   } catch (error) {
-    console.log(error);
     return null;
   }
 }

@@ -88,13 +88,11 @@ export async function addMenuUser(AddMenuData: AddMenuType[], berat: number[]) {
     const res = await prisma.addMenu.createMany({
       data: AddMenuDatas,
     });
-    console.log(res);
     return {
       status: 201,
       message: "Success to create your menu",
     };
   } catch (error) {
-    console.log(error);
     return {
       status: 500,
       message: (error as TypeError).name,
@@ -135,9 +133,6 @@ export async function getMenusUser({ name }: { name: string }) {
         menu: true,
       },
     });
-
-    console.log(data);
-    console.log(res);
 
     const resDataCalculation = res.map((item, index: number) => ({
       nama: item.nama,
@@ -238,7 +233,6 @@ export async function getMenusUser({ name }: { name: string }) {
       totalCalculation: totalCalculation,
     };
   } catch (error) {
-    console.log(error);
     return {
       status: 500,
       message: (error as TypeError).name,
