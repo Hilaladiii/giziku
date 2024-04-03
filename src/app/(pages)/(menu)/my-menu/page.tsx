@@ -55,7 +55,6 @@ export default function MyMenuPage() {
         <TableHeader>
           <TableRow>
             <TableHead className="w-32">Berat</TableHead>
-            <TableHead>Kode</TableHead>
             <TableHead>Nama</TableHead>
             <TableHead>delete</TableHead>
           </TableRow>
@@ -72,7 +71,6 @@ export default function MyMenuPage() {
                   }
                 />
               </TableCell>
-              <TableCell className="font-semibold">{menu.code}</TableCell>
               <TableCell>{menu.name}</TableCell>
               <TableCell>
                 <Button
