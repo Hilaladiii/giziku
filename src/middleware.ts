@@ -7,8 +7,9 @@ export function mainMiddleware(req: NextRequest) {
 }
 
 export default withAuth(mainMiddleware, [
-  "/dashboard",
-  "/listMenu",
-  "/myMenu",
+  "/add-new-menu",
+  "/list-menu",
+  "/my-menu",
   "/result",
+  "/add-all-data",
 ]);
