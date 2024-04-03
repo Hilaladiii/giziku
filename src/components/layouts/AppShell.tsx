@@ -6,7 +6,7 @@ import { MenuProvider } from "@/contexts/MenuContext";
 import { MenuUserProvider } from "@/contexts/MenuUserContext";
 import { Toaster } from "@/components/ui/toaster";
 
-const disableNavbar = ["/login", "/register", "/404"];
+const disableNavbar = ["/login", "/register", "/error", "/"];
 export default function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   return (
