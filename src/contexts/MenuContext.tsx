@@ -1,14 +1,14 @@
-import { compositionType } from "@/types/compositionSchema";
+import { MenuType } from "@/types/menuSchema";
 import { useReducer, useContext, createContext, Dispatch } from "react";
 
 type ActionMenuType = {
   type: string;
-  payload: compositionType;
+  payload: MenuType;
 };
-const menuContext = createContext<compositionType[]>([]);
+const menuContext = createContext<MenuType[]>([]);
 const menuDispatch = createContext<Dispatch<ActionMenuType>>(() => {});
 
-const menuReducer = (state: compositionType[], action: ActionMenuType) => {
+const menuReducer = (state: MenuType[], action: ActionMenuType) => {
   switch (action.type) {
     case "ADD_MENU":
       return [...state, action.payload];

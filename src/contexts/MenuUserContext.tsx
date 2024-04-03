@@ -1,16 +1,16 @@
 "use client";
-import { addMenuType } from "@/types/compositionSchema";
+import { AddMenuType } from "@/types/menuSchema";
 import { useReducer, useContext, createContext, Dispatch } from "react";
 
 type ActionMenuType = {
   type: string;
-  payload: addMenuType;
+  payload: AddMenuType;
 };
 
-const menuUserContext = createContext<addMenuType[]>([]);
+const menuUserContext = createContext<AddMenuType[]>([]);
 const menuUserDispatch = createContext<Dispatch<ActionMenuType>>(() => {});
 
-const menuUserReducer = (state: addMenuType[], action: ActionMenuType) => {
+const menuUserReducer = (state: AddMenuType[], action: ActionMenuType) => {
   switch (action.type) {
     case "ADD_TO_MY_MENU":
       const isExist = state.find((data) => data.code == action.payload.code);
