@@ -1,6 +1,6 @@
 import { getMenusByUser } from "@/services/menuService";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../api/auth/[[...nextauth]]/route";
+import { authOptions } from "@/app/api/auth/[[...nextauth]]/route";
 import {
   Table,
   TableBody,
@@ -10,13 +10,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { compositionType } from "@/types/compositionSchema";
+import { MenuType } from "@/types/menuSchema";
 
 export default async function ResultPage() {
   const session = await getServerSession(authOptions);
   const user = session?.user?.name || "";
   const dataResult = await getMenusByUser({ user: user });
-  console.log(dataResult);
   return (
     <div className="flex flex-col">
       <h1 className="mt-10 font-bold text-3xl mx-auto">Hasil Perhitungan</h1>
@@ -35,20 +34,23 @@ export default async function ResultPage() {
             <TableHead>Fosfor</TableHead>
             <TableHead>Besi</TableHead>
             <TableHead>Natrium</TableHead>
+            <TableHead>Kalium</TableHead>
             <TableHead>Tembaga</TableHead>
             <TableHead>Seng</TableHead>
+            <TableHead>Retinol</TableHead>
             <TableHead>bKar</TableHead>
             <TableHead>karTot</TableHead>
             <TableHead>Thiamin</TableHead>
             <TableHead>Riboflavin</TableHead>
             <TableHead>Niasin</TableHead>
             <TableHead>Vit-C</TableHead>
+            <TableHead>Bdd</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {dataResult.data.map((menu: compositionType, index: number) => (
+          {dataResult.data.map((menu: MenuType, index: number) => (
             <TableRow className="text-center" key={index}>
-              <TableCell className="truncate">{menu.name}</TableCell>
+              <TableCell className="truncate">{menu.nama}</TableCell>
               <TableCell>{menu.air}</TableCell>
               <TableCell>{menu.energi}</TableCell>
               <TableCell>{menu.protein}</TableCell>
@@ -60,14 +62,17 @@ export default async function ResultPage() {
               <TableCell>{menu.fosfor}</TableCell>
               <TableCell>{menu.besi}</TableCell>
               <TableCell>{menu.natrium}</TableCell>
+              <TableCell>{menu.kalium}</TableCell>
               <TableCell>{menu.tembaga}</TableCell>
               <TableCell>{menu.seng}</TableCell>
-              <TableCell>{menu.bKar}</TableCell>
-              <TableCell>{menu.karTot}</TableCell>
+              <TableCell>{menu.retinol}</TableCell>
+              <TableCell>{menu.bKaroten}</TableCell>
+              <TableCell>{menu.karotenTotal}</TableCell>
               <TableCell>{menu.thiamin}</TableCell>
               <TableCell>{menu.riboflavin}</TableCell>
               <TableCell>{menu.niasin}</TableCell>
-              <TableCell>{menu.vitC}</TableCell>
+              <TableCell>{menu.vitaminC}</TableCell>
+              <TableCell>{menu.bdd}</TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -85,14 +90,17 @@ export default async function ResultPage() {
             <TableCell>{dataResult.totalCalculation.fosfor}</TableCell>
             <TableCell>{dataResult.totalCalculation.besi}</TableCell>
             <TableCell>{dataResult.totalCalculation.natrium}</TableCell>
+            <TableCell>{dataResult.totalCalculation.kalium}</TableCell>
             <TableCell>{dataResult.totalCalculation.tembaga}</TableCell>
             <TableCell>{dataResult.totalCalculation.seng}</TableCell>
-            <TableCell>{dataResult.totalCalculation.bKar}</TableCell>
-            <TableCell>{dataResult.totalCalculation.karTot}</TableCell>
+            <TableCell>{dataResult.totalCalculation.retinol}</TableCell>
+            <TableCell>{dataResult.totalCalculation.bKaroten}</TableCell>
+            <TableCell>{dataResult.totalCalculation.karotenTotal}</TableCell>
             <TableCell>{dataResult.totalCalculation.thiamin}</TableCell>
             <TableCell>{dataResult.totalCalculation.riboflavin}</TableCell>
             <TableCell>{dataResult.totalCalculation.niasin}</TableCell>
-            <TableCell>{dataResult.totalCalculation.vitC}</TableCell>
+            <TableCell>{dataResult.totalCalculation.vitaminC}</TableCell>
+            <TableCell>{dataResult.totalCalculation.bdd}</TableCell>
           </TableRow>
         </TableFooter>
       </Table>
