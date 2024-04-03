@@ -10,9 +10,9 @@ export default function Navbar() {
     <nav className="w-full h-20 bg-zinc-950 text-white flex flex-row justify-between items-center px-10 py-3">
       <h1>GIZIKU</h1>
       <div className="flex gap-5">
-        <Link href="/dashboard">Tambah data menu</Link>
-        <Link href="/listMenu">List Menu</Link>
-        <Link href="/myMenu">Menu Pilihan Saya</Link>
+        <Link href="/add-new-menu">Tambah data menu</Link>
+        <Link href="/list-menu">List Menu</Link>
+        <Link href="/my-menu">Menu Pilihan Saya</Link>
         <Link href="/result">Hasil Perhitungan</Link>
       </div>
       <div className="flex flex-row gap-5 items-center">
