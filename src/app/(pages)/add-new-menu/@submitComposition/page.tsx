@@ -1,10 +1,11 @@
 "use client";
-import { ShowDialog } from "@/components/fragments/show-dialog";
+import { ShowDialog } from "@/components/Custom-show-dialog";
 import {
   Table,
   TableBody,
   TableCaption,
   TableCell,
+  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
@@ -12,7 +13,6 @@ import {
 import { toast } from "@/components/ui/use-toast";
 import { useMenu, useMenuDispatch } from "@/contexts/MenuContext";
 import { SubmitAllMenus } from "@/services/menuService";
-import { compositionType } from "@/types/compositionSchema";
 
 export default function SubmitComposition() {
   const menus = useMenu();
@@ -30,13 +30,12 @@ export default function SubmitComposition() {
   };
   return (
     <>
-      <Table className="max-w-[60rem] mx-auto mt-10">
+      <Table className="max-w-[60rem] mx-auto mt-16">
         <TableCaption>
           A list of your menu that you will enter into the database.
         </TableCaption>
         <TableHeader>
           <TableRow>
-            <TableHead>Kode</TableHead>
             <TableHead>Nama</TableHead>
             <TableHead>Air</TableHead>
             <TableHead>Energi</TableHead>
@@ -51,19 +50,18 @@ export default function SubmitComposition() {
             <TableHead>Natrium</TableHead>
             <TableHead>Tembaga</TableHead>
             <TableHead>Seng</TableHead>
-            <TableHead>Vit-C</TableHead>
             <TableHead>bKar</TableHead>
             <TableHead>karTot</TableHead>
             <TableHead>Thiamin</TableHead>
             <TableHead>Riboflavin</TableHead>
             <TableHead>Niasin</TableHead>
+            <TableHead>Vit-C</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {menus.map((menu: compositionType, index: number) => (
+          {menus.map((menu, index: number) => (
             <TableRow className="text-center">
-              <TableCell className="font-medium">{menu.code}</TableCell>
-              <TableCell>{menu.name}</TableCell>
+              <TableCell>{menu.nama}</TableCell>
               <TableCell>{menu.air}</TableCell>
               <TableCell>{menu.energi}</TableCell>
               <TableCell>{menu.protein}</TableCell>
@@ -77,9 +75,9 @@ export default function SubmitComposition() {
               <TableCell>{menu.natrium}</TableCell>
               <TableCell>{menu.tembaga}</TableCell>
               <TableCell>{menu.seng}</TableCell>
-              <TableCell>{menu.vitC}</TableCell>
-              <TableCell>{menu.bKar}</TableCell>
-              <TableCell>{menu.karTot}</TableCell>
+              <TableCell>{menu.vitaminC}</TableCell>
+              <TableCell>{menu.bKaroten}</TableCell>
+              <TableCell>{menu.karotenTotal}</TableCell>
               <TableCell>{menu.thiamin}</TableCell>
               <TableCell>{menu.riboflavin}</TableCell>
               <TableCell>{menu.niasin}</TableCell>
@@ -92,6 +90,8 @@ export default function SubmitComposition() {
         description="data anda akan disubmit ke database, jika tidak sesuai maka akan ada kesalahan perhitungan"
         onclick={() => handleSubmit()}
       />
+      <br />
+      <br />
     </>
   );
 }
