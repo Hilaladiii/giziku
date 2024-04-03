@@ -17,7 +17,10 @@ export default async function MenuPage({
 
   return (
     <div className="w-full flex flex-col p-10">
-      <Search />
+      <div className="flex flex-row items-center gap-5">
+        <h1 className="font-semibold text-md">Find Spesific Composition</h1>
+        <Search />
+      </div>
       <MenuTable query={query} page={currPage} />
       <div className="flex mx-auto">
         <Pagination totalPages={Number(totalPagesMenu)} />
