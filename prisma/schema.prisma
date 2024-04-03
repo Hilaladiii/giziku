@@ -1,5 +1,6 @@
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["relationJoins"]
 }
 
 datasource db {
@@ -14,35 +15,38 @@ model User{
   menus AddMenu[]
 }
 model AddMenu{
+  addMenuId String @id @default(uuid())
   user User @relation(fields: [username], references: [username])  
   username String @db.VarChar(15)
   menu Menu @relation(fields: [code], references: [code])
-  code String @db.VarChar(5)
+  code Int
   createdAt DateTime @default(now()) 
-  @@id([username, code])
+  berat Float     
 }
 model Menu{
-  code String @id @db.VarChar(5)
-  name String @db.VarChar(50)     
-  air Float?
-  energi Float?
-  protein Float?
-  lemak Float?
-  kh Float?
-  serat Float?
-  abu Float?
-  kalsium Float?
-  fosfor Float?
-  besi Float?
-  natrium Float?
-  kalium Float?
-  tembaga Float?
-  seng Float?
-  vitC Float?
-  bKar Float?
-  karTot Float?
-  thiamin Float?
-  riboflavin Float?
-  niasin Float?    
+  code Int @id @default(autoincrement())
+  nama String @db.VarChar(50)     
+  air Float
+  energi Float
+  protein Float
+  lemak Float
+  kh Float
+  serat Float
+  abu Float
+  kalsium Float
+  fosfor Float
+  besi Float
+  natrium Float
+  kalium Float
+  tembaga Float
+  seng Float
+  retinol Float
+  bKaroten Float
+  karotenTotal Float
+  thiamin Float
+  riboflavin Float
+  niasin Float    
+  vitaminC Float
+  bdd Float
   addMenus AddMenu[]
 }
