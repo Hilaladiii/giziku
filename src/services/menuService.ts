@@ -8,7 +8,7 @@ export async function getAllMenus({
   page: number;
 }) {
   const data = await fetch(
-    `http://localhost:3000/api/getMenu?query=${query}&page=${page}`,
+    `http://localhost:3000/api/get-menu?query=${query}&page=${page}`,
     {
       cache: "no-store",
     }
@@ -18,7 +18,7 @@ export async function getAllMenus({
 }
 
 export async function SubmitAllMenus(menuData: MenuType[]) {
-  const res = await fetch("http://localhost:3000/api/addMenu", {
+  const res = await fetch("http://localhost:3000/api/add-menu", {
     method: "POST",
     body: JSON.stringify(menuData),
   });
@@ -43,9 +43,24 @@ export async function AddMenuByUser(
 
 export async function getMenusByUser({ user }: { user?: string }) {
   try {
-    const res = await fetch("http://localhost:3000/api/getMenuUser", {
+    const res = await fetch("http://localhost:3000/api/get-menu-user", {
       headers: { Authorization: `${user}` },
     });
     return res.json();
-  } catch (error) {}
+  } catch (error) {
+    return (error as TypeError).name;
+  }
+}
+
+export async function deleteMyMenu({ id }: { id: string }) {
+  try {
+    const res = await fetch(
+      `http://localhost:3000/api/delete-my-menu?id=${id}`,
+      {
+        method: "DELETE",
+      }
+    );
+  } catch (error) {
+    return (error as TypeError).name;
+  }
 }
