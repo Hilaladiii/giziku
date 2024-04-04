@@ -10,7 +10,7 @@ import { getAllMenus } from "@/services/menuService";
 import { MenuType } from "@/types/menuSchema";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[[...nextauth]]/route";
-import AddToMenuBtn from "@/components/AddToMenuBtn";
+import { ButtonServerActionAddMenu } from "./ButtonServerAction";
 
 export default async function MenuTable({
   query,
@@ -79,7 +79,8 @@ export default async function MenuTable({
               <TableCell>{menu.niasin}</TableCell>
               <TableCell>{menu.vitaminC}</TableCell>
               <TableCell>
-                <AddToMenuBtn
+                <ButtonServerActionAddMenu
+                  label="+"
                   menu={{
                     name: menu.nama,
                     code: menu.code || 0,
