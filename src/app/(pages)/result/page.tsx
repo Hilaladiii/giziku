@@ -11,6 +11,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { MenuType } from "@/types/menuSchema";
+import { ButtonServerActionDeleteMenu } from "@/components/ButtonServerAction";
 
 export default async function ResultPage() {
   const session = await getServerSession(authOptions);
@@ -45,6 +46,7 @@ export default async function ResultPage() {
             <TableHead>Niasin</TableHead>
             <TableHead>Vit-C</TableHead>
             <TableHead>Bdd</TableHead>
+            {dataResult.data.length > 0 ? <TableHead>Action</TableHead> : null}
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -73,6 +75,14 @@ export default async function ResultPage() {
               <TableCell>{menu.niasin}</TableCell>
               <TableCell>{menu.vitaminC}</TableCell>
               <TableCell>{menu.bdd}</TableCell>
+              {menu ? (
+                <TableCell>
+                  <ButtonServerActionDeleteMenu
+                    label="-"
+                    id={menu.addMenuId || ""}
+                  />
+                </TableCell>
+              ) : null}
             </TableRow>
           ))}
         </TableBody>
