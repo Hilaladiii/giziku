@@ -1,5 +1,4 @@
 "use client";
-
 import { signIn, signOut, useSession } from "next-auth/react";
 import { Button } from "./ui/button";
 import Link from "next/link";
@@ -12,10 +11,18 @@ export default function Navbar() {
         Giziku
       </Link>
       <div className="flex gap-8">
-        <Link href="/add-new-menu">Add new data</Link>
-        <Link href="/list-menu">List Menu</Link>
-        <Link href="/my-menu">My menu</Link>
-        <Link href="/result">Result</Link>
+        <Link href="/add-new-menu" className="focus:underline">
+          Add new data
+        </Link>
+        <Link href="/list-menu" className="focus:underline">
+          List Menu
+        </Link>
+        <Link href="/my-menu" className="focus:underline">
+          My menu
+        </Link>
+        <a href="/result" className="focus:underline">
+          Result
+        </a>
       </div>
       <div className="flex flex-row gap-5 items-center">
         <p>Hello {data?.user?.name || "Guest"}👋</p>
