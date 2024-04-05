@@ -37,7 +37,7 @@ export default function LoginForm() {
         email,
         password,
         redirect: true,
-        callbackUrl: callbackUrl || "/",
+        callbackUrl: callbackUrl || "/list-menu",
       });
       if (response?.status === 401) {
         toast({
