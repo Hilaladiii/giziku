@@ -1,4 +1,4 @@
-import { MenuType, AddMenuType } from "@/types/menuSchema";
+import { AddMenuType, NewMenuType } from "@/types/menuSchema";
 
 export async function getAllMenus({
   query,
@@ -17,7 +17,7 @@ export async function getAllMenus({
   return menuData;
 }
 
-export async function SubmitAllMenus(menuData: MenuType[]) {
+export async function SubmitAllMenus(menuData: NewMenuType[]) {
   const res = await fetch("http://localhost:3000/api/add-menu", {
     method: "POST",
     body: JSON.stringify(menuData),
