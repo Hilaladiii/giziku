@@ -12,13 +12,13 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { menuSchema } from "@/types/menuSchema";
+import { newMenuSchema } from "@/types/menuSchema";
 import { useMenuDispatch } from "@/contexts/MenuContext";
 
 export default function CompositionForm() {
   const dispatch = useMenuDispatch();
-  const form = useForm<z.infer<typeof menuSchema>>({
-    resolver: zodResolver(menuSchema),
+  const form = useForm<z.infer<typeof newMenuSchema>>({
+    resolver: zodResolver(newMenuSchema),
     defaultValues: {
       nama: "",
       air: 0,
@@ -45,7 +45,7 @@ export default function CompositionForm() {
       retinol: 0,
     },
   });
-  function onSubmit(values: z.infer<typeof menuSchema>) {
+  function onSubmit(values: z.infer<typeof newMenuSchema>) {
     dispatch({
       type: "ADD_MENU",
       payload: values,
