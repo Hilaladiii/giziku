@@ -1,8 +1,14 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import withAuth from "./middlewares/withAuth";
+import { getToken } from "next-auth/jwt";
 
-export function mainMiddleware(req: NextRequest) {
+export async function mainMiddleware(req: NextRequest) {
+  const token = await getToken({ req, secret: process.env.NEXT_AUTH_SECRET });
+  const pathname = req.nextUrl.pathname;
+  if (token && ["/login", "/register"].includes(pathname)) {
+    return NextResponse.redirect(new URL("/list-menu", req.url));
+  }
   return NextResponse.next();
 }
 
