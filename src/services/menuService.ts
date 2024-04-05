@@ -60,6 +60,21 @@ export async function deleteMyMenu({ id }: { id: string }) {
         method: "DELETE",
       }
     );
+    return res.json();
+  } catch (error) {
+    return (error as TypeError).name;
+  }
+}
+
+export async function deleteAllMyMenu({ user }: { user: string }) {
+  try {
+    const res = await fetch("http://localhost:3000/api/delete-all-mymenu", {
+      headers: {
+        Authorization: `${user}`,
+      },
+      method: "DELETE",
+    });
+    return res.json();
   } catch (error) {
     return (error as TypeError).name;
   }
