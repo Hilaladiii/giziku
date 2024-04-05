@@ -1,8 +1,12 @@
 import { z } from "zod";
 
-export const menuSchema = z.object({
-  berat: z.coerce.number().nonnegative().optional(),
-  code: z.coerce.number().nonnegative().optional(),
+export const addMenuSchema = z.object({
+  username: z.string(),
+  code: z.number(),
+  name: z.string(),
+});
+
+export const newMenuSchema = z.object({
   nama: z.string().min(5, "min characters 5").max(50, "max characters 50"),
   air: z.coerce.number().nonnegative(),
   energi: z.coerce.number().nonnegative(),
@@ -28,11 +32,19 @@ export const menuSchema = z.object({
   bdd: z.coerce.number().nonnegative(),
 });
 
-export const addMenuSchema = z.object({
-  username: z.string(),
-  code: z.number(),
-  name: z.string(),
-});
+export const listMenuSchema = z
+  .object({
+    code: z.number().negative(),
+  })
+  .merge(newMenuSchema);
 
-export type MenuType = z.infer<typeof menuSchema>;
+export const resultMenuSchema = z
+  .object({
+    addMenuId: z.string(),
+  })
+  .merge(newMenuSchema);
+
 export type AddMenuType = z.infer<typeof addMenuSchema>;
+export type ListMenuType = z.infer<typeof listMenuSchema>;
+export type NewMenuType = z.infer<typeof newMenuSchema>;
+export type ResultMenuType = z.infer<typeof resultMenuSchema>;
