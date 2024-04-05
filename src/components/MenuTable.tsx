@@ -7,7 +7,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { getAllMenus } from "@/services/menuService";
-import { MenuType } from "@/types/menuSchema";
+import { ListMenuType } from "@/types/menuSchema";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[[...nextauth]]/route";
 import { ButtonServerActionAddMenu } from "./ButtonServerAction";
@@ -54,7 +54,7 @@ export default async function MenuTable({
           </TableRow>
         </TableHeader>
         <TableBody>
-          {menus.data.map((menu: MenuType, index: number) => (
+          {menus.data.map((menu: ListMenuType, index: number) => (
             <TableRow className="text-center" key={index}>
               <TableCell>{index + 1}</TableCell>
               <TableCell className="truncate">{menu.nama}</TableCell>
@@ -83,7 +83,7 @@ export default async function MenuTable({
                   label="+"
                   menu={{
                     name: menu.nama,
-                    code: menu.code || 0,
+                    code: menu.code,
                     username: user,
                   }}
                 />
