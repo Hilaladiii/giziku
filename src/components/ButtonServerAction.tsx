@@ -3,7 +3,7 @@ import { useMenuUserDispatch } from "@/contexts/MenuUserContext";
 
 import { Button } from "./ui/button";
 import { AddMenuType } from "@/types/menuSchema";
-import { actionDeleteMyMenu } from "@/lib/action";
+import { actionDeleteAllMyMenu, actionDeleteMyMenu } from "@/lib/action";
 
 export function ButtonServerActionAddMenu({
   menu,
@@ -41,6 +41,21 @@ export function ButtonServerActionDeleteMenu({
     <form action={deleteMenuId}>
       <Button type="submit" variant="outline">
         {label}
+      </Button>
+    </form>
+  );
+}
+
+export function ButtonServerActionDeleteAllMenu({ user }: { user: string }) {
+  const deleteAllMenu = actionDeleteAllMyMenu.bind(null, { user });
+  return (
+    <form action={deleteAllMenu}>
+      <Button
+        type="submit"
+        variant="destructive"
+        className="flex mx-auto mt-10"
+      >
+        Delete All Menu
       </Button>
     </form>
   );
