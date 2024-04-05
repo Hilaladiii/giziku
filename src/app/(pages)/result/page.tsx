@@ -11,7 +11,10 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { MenuType } from "@/types/menuSchema";
-import { ButtonServerActionDeleteMenu } from "@/components/ButtonServerAction";
+import {
+  ButtonServerActionDeleteAllMenu,
+  ButtonServerActionDeleteMenu,
+} from "@/components/ButtonServerAction";
 
 export default async function ResultPage() {
   const session = await getServerSession(authOptions);
@@ -114,6 +117,9 @@ export default async function ResultPage() {
           </TableRow>
         </TableFooter>
       </Table>
+      {dataResult.data.length > 0 ? (
+        <ButtonServerActionDeleteAllMenu user={user} />
+      ) : null}
     </div>
   );
 }
