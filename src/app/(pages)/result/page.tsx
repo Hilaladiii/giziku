@@ -10,7 +10,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { MenuType } from "@/types/menuSchema";
+import { ResultMenuType } from "@/types/menuSchema";
 import {
   ButtonServerActionDeleteAllMenu,
   ButtonServerActionDeleteMenu,
@@ -53,7 +53,7 @@ export default async function ResultPage() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {dataResult.data.map((menu: MenuType, index: number) => (
+          {dataResult.data.map((menu: ResultMenuType, index: number) => (
             <TableRow className="text-center" key={index}>
               <TableCell className="truncate">{menu.nama}</TableCell>
               <TableCell>{menu.air}</TableCell>
