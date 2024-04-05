@@ -1,8 +1,8 @@
 import { prisma } from "../prisma";
-import { AddMenuType, MenuType } from "@/types/menuSchema";
+import { AddMenuType, NewMenuType } from "@/types/menuSchema";
 import { toFixedFloat } from "../utils";
 
-export async function AddMenus(menuData: MenuType[]) {
+export async function AddMenus(menuData: NewMenuType[]) {
   try {
     const res = await prisma.menu.createMany({
       data: menuData,
