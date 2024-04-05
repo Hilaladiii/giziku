@@ -109,11 +109,13 @@ export async function getMenusUser({ name }: { name: string }) {
       select: {
         code: true,
         berat: true,
+        addMenuId: true,
       },
     });
 
     const codes = getCodeWeight.map((data) => data.code);
     const berat = getCodeWeight.map((data) => data.berat);
+    const addMenuId = getCodeWeight.map((data) => data.addMenuId);
 
     const res = await prisma.menu.findMany({
       where: {
@@ -123,18 +125,8 @@ export async function getMenusUser({ name }: { name: string }) {
       },
     });
 
-    const data = await prisma.addMenu.findMany({
-      where: {
-        username: name,
-      },
-      select: {
-        code: true,
-        berat: true,
-        menu: true,
-      },
-    });
-
     const resDataCalculation = res.map((item, index: number) => ({
+      addMenuId: addMenuId[index],
       nama: item.nama,
       air: toFixedFloat((item.air * berat[index]) / 100),
       energi: toFixedFloat((item.energi * berat[index]) / 100),
@@ -233,6 +225,52 @@ export async function getMenusUser({ name }: { name: string }) {
       totalCalculation: totalCalculation,
     };
   } catch (error) {
+    return {
+      status: 500,
+      message: (error as TypeError).name,
+    };
+  }
+}
+
+export async function deleteMyMenu({ id }: { id: string }) {
+  try {
+    const res = await prisma.addMenu.delete({
+      where: {
+        addMenuId: id,
+      },
+    });
+    return {
+      status: 200,
+      message: "Delete menu success",
+    };
+  } catch (error) {
+    return {
+      status: 500,
+      message: (error as TypeError).name,
+    };
+  }
+}
+
+export async function deleteAllMyMenu({ user }: { user: string }) {
+  try {
+    const res = await prisma.addMenu.deleteMany({
+      where: {
+        username: user,
+      },
+    });
+    console.log(res);
+    if (res.count == 0) {
+      return {
+        status: 400,
+        message: "failed to delete all menu",
+      };
+    }
+    return {
+      status: 200,
+      message: "success to delete all menu",
+    };
+  } catch (error) {
+    console.log(error);
     return {
       status: 500,
       message: (error as TypeError).name,
