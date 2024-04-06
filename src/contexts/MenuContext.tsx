@@ -6,6 +6,7 @@ type ActionMenuType = {
   payload: NewMenuType;
 };
 const menuContext = createContext<NewMenuType[]>([]);
+
 const menuDispatch = createContext<Dispatch<ActionMenuType>>(() => {});
 
 const menuReducer = (state: NewMenuType[], action: ActionMenuType) => {
