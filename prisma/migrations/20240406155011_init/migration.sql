@@ -1,8 +1,9 @@
 -- CreateTable
 CREATE TABLE `User` (
-    `username` VARCHAR(15) NOT NULL,
+    `username` VARCHAR(50) NOT NULL,
     `email` VARCHAR(50) NOT NULL,
     `password` VARCHAR(100) NOT NULL,
+    `image` VARCHAR(100) NULL,
 
     UNIQUE INDEX `User_email_key`(`email`),
     PRIMARY KEY (`username`)
@@ -22,7 +23,7 @@ CREATE TABLE `AddMenu` (
 -- CreateTable
 CREATE TABLE `Menu` (
     `code` INTEGER NOT NULL AUTO_INCREMENT,
-    `name` VARCHAR(50) NOT NULL,
+    `nama` VARCHAR(50) NOT NULL,
     `air` DOUBLE NOT NULL,
     `energi` DOUBLE NOT NULL,
     `protein` DOUBLE NOT NULL,
@@ -37,12 +38,14 @@ CREATE TABLE `Menu` (
     `kalium` DOUBLE NOT NULL,
     `tembaga` DOUBLE NOT NULL,
     `seng` DOUBLE NOT NULL,
-    `vitC` DOUBLE NOT NULL,
-    `bKar` DOUBLE NOT NULL,
-    `karTot` DOUBLE NOT NULL,
+    `retinol` DOUBLE NOT NULL,
+    `bKaroten` DOUBLE NOT NULL,
+    `karotenTotal` DOUBLE NOT NULL,
     `thiamin` DOUBLE NOT NULL,
     `riboflavin` DOUBLE NOT NULL,
     `niasin` DOUBLE NOT NULL,
+    `vitaminC` DOUBLE NOT NULL,
+    `bdd` DOUBLE NOT NULL,
 
     PRIMARY KEY (`code`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
