@@ -7,11 +7,11 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
-
 model User{
-  username String @id @db.VarChar(15)
+  username String @id @db.VarChar(50)
   email String @db.VarChar(50) @unique 
-  password String @db.VarChar(100)   
+  password String @db.VarChar(100) 
+  image String? @db.VarChar(100)
   menus AddMenu[]
 }
 model AddMenu{
