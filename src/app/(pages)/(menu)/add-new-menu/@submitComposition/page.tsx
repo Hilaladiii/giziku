@@ -59,7 +59,7 @@ export default function SubmitComposition() {
         </TableHeader>
         <TableBody>
           {menus.map((menu, index: number) => (
-            <TableRow className="text-center">
+            <TableRow className="text-center" key={index}>
               <TableCell>{menu.nama}</TableCell>
               <TableCell>{menu.air}</TableCell>
               <TableCell>{menu.energi}</TableCell>
