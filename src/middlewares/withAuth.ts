@@ -27,6 +27,7 @@ export default function withAuth(
         return NextResponse.redirect(new URL("/", req.url));
       }
     }
+
     return middleware(req, next);
   };
 }
