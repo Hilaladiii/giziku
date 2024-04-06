@@ -72,7 +72,7 @@ export async function signIn(userData: { email: string; password: string }) {
       );
       if (passwordVerified) {
         return {
-          username: user.username,
+          name: user.username,
           email: user.email,
         };
       } else {

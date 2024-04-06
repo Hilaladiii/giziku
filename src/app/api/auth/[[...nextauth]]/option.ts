@@ -36,7 +36,7 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token, account, user }) {
       if (account?.provider === "credentials") {
         token.email = user.email;
-        token.name = user.username;
+        token.name = user.name;
       }
       if (account?.provider === "google") {
         const res = await signInWithGoogle({
