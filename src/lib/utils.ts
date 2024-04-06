@@ -32,3 +32,16 @@ export const generatePagination = (currentPage: number, totalPages: number) => {
     totalPages,
   ];
 };
+
+import bcryptjs from "bcryptjs";
+export async function generateRandomPassword(length: number) {
+  const charset =
+    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  let password = "";
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * charset.length);
+    password += charset[randomIndex];
+  }
+  const passwordHash = await bcryptjs.hash(password, 10);
+  return passwordHash;
+}
