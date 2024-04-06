@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { getServerSession } from "next-auth";
 import Image from "next/image";
 import Link from "next/link";
-import { authOptions } from "./api/auth/[[...nextauth]]/route";
+import { authOptions } from "./api/auth/[[...nextauth]]/option";
 
 export default async function Home() {
   const session = await getServerSession(authOptions);

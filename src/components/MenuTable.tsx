@@ -9,7 +9,7 @@ import {
 import { getAllMenus } from "@/services/menuService";
 import { ListMenuType } from "@/types/menuSchema";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[[...nextauth]]/route";
+import { authOptions } from "@/app/api/auth/[[...nextauth]]/option";
 import { ButtonServerActionAddMenu } from "./ButtonServerAction";
 
 export default async function MenuTable({
