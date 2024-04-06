@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import { signIn } from "next-auth/react";
 import { toast } from "./ui/use-toast";
 import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -53,7 +54,7 @@ export default function LoginForm() {
     }
   }
   return (
-    <>
+    <Suspense>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <FormField
@@ -103,6 +104,6 @@ export default function LoginForm() {
       >
         Login Wih Google
       </Button>
-    </>
+    </Suspense>
   );
 }
