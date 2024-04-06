@@ -1,5 +1,6 @@
 import { AddMenuType, NewMenuType } from "@/types/menuSchema";
 
+const api = process.env.API_ROOT;
 export async function getAllMenus({
   query,
   page,
@@ -7,18 +8,15 @@ export async function getAllMenus({
   query: string;
   page: number;
 }) {
-  const data = await fetch(
-    `http://localhost:3000/api/get-menu?query=${query}&page=${page}`,
-    {
-      cache: "default",
-    }
-  );
+  const data = await fetch(`${api}/get-menu?query=${query}&page=${page}`, {
+    cache: "default",
+  });
   const menuData = await data.json();
   return menuData;
 }
 
 export async function SubmitAllMenus(menuData: NewMenuType[]) {
-  const res = await fetch("http://localhost:3000/api/add-menu", {
+  const res = await fetch(`${api}/api/add-menu`, {
     method: "POST",
     body: JSON.stringify(menuData),
   });
@@ -34,7 +32,7 @@ export async function AddMenuByUser(
     menu: AddMenuDataUser,
     berat: berat,
   };
-  const res = await fetch("http://localhost:3000/api/add-menu-user", {
+  const res = await fetch(`${api}/api/add-menu-user`, {
     method: "POST",
     body: JSON.stringify(data),
   });
@@ -43,7 +41,7 @@ export async function AddMenuByUser(
 
 export async function getMenusByUser({ user }: { user?: string }) {
   try {
-    const res = await fetch("http://localhost:3000/api/get-menu-user", {
+    const res = await fetch(`${api}/api/get-menu-user`, {
       headers: { Authorization: `${user}` },
     });
     return res.json();
@@ -54,12 +52,9 @@ export async function getMenusByUser({ user }: { user?: string }) {
 
 export async function deleteMyMenu({ id }: { id: string }) {
   try {
-    const res = await fetch(
-      `http://localhost:3000/api/delete-my-menu?id=${id}`,
-      {
-        method: "DELETE",
-      }
-    );
+    const res = await fetch(`${api}/api/delete-my-menu?id=${id}`, {
+      method: "DELETE",
+    });
     return res.json();
   } catch (error) {
     return (error as TypeError).name;
@@ -68,7 +63,7 @@ export async function deleteMyMenu({ id }: { id: string }) {
 
 export async function deleteAllMyMenu({ user }: { user: string }) {
   try {
-    const res = await fetch("http://localhost:3000/api/delete-all-mymenu", {
+    const res = await fetch(`${api}/api/delete-all-mymenu`, {
       headers: {
         Authorization: `${user}`,
       },
