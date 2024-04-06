@@ -2,7 +2,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import NextAuth from "next-auth/next";
 import { NextAuthOptions } from "next-auth";
-import { signIn } from "@/lib/DBService/dbUser";
+import { signIn, signInWithGoogle } from "@/lib/DBService/dbUser";
 
 export const authOptions: NextAuthOptions = {
   session: {
@@ -39,9 +39,16 @@ export const authOptions: NextAuthOptions = {
         token.name = user.username;
       }
       if (account?.provider === "google") {
-        token.email = user.email;
-        token.name = user.name;
-        token.picture = user.image;
+        const res = await signInWithGoogle({
+          username: user.name || "",
+          email: user.email || "",
+          image: user.image || "",
+        });
+        if (res.status == 200 || res.status == 201) {
+          token.email = res.data?.email;
+          token.name = res.data?.username;
+          token.picture = res.data?.image;
+        }
       }
       return token;
     },
