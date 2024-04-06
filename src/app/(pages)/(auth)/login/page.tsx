@@ -11,7 +11,7 @@ export default function LoginPage() {
         </p>
         <LoginForm />
         <div className="flex flex-row mt-5 justify-center items-center gap-1">
-          <p className="text-sm">Don't have an account?</p>
+          <p className="text-sm">Dont have an account?</p>
           <Link
             href="/register"
             className="text-sm text-zinc-700 hover:text-zinc-500"

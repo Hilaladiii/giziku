@@ -22,9 +22,7 @@ export default async function Home() {
           </p>
           {session?.user ? (
             <Button size="lg" className="mt-5">
-              <Link href="/list-menu">
-                Haii {session.user.name} let's begin
-              </Link>
+              <Link href="/list-menu">Haii {session.user.name} lets begin</Link>
             </Button>
           ) : (
             <Button size="lg" className="mt-5">
