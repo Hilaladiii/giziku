@@ -1,6 +1,7 @@
 import { userType } from "@/types/userSchema";
 import { prisma } from "../prisma";
 import bcryptjs from "bcryptjs";
+import { generateRandomPassword } from "../utils";
 
 export async function signUp(userData: userType) {
   try {
@@ -82,5 +83,54 @@ export async function signIn(userData: { email: string; password: string }) {
     }
   } catch (error) {
     return null;
+  }
+}
+
+export async function signInWithGoogle(userData: {
+  email: string;
+  username: string;
+  image: string;
+}) {
+  try {
+    const user = await prisma.user.findUnique({
+      where: {
+        email: userData.email,
+      },
+    });
+    if (user) {
+      await prisma.user.update({
+        where: {
+          email: userData.email,
+        },
+        data: {
+          image: userData.image,
+        },
+      });
+      return {
+        status: 200,
+        message: "succes to signUp with google",
+        data: userData,
+      };
+    } else {
+      const passwordHash = await generateRandomPassword(10);
+      await prisma.user.create({
+        data: {
+          email: userData.email,
+          username: userData.username,
+          password: passwordHash,
+          image: userData.image,
+        },
+      });
+      return {
+        status: 201,
+        message: "succes to signUp with google",
+        data: userData,
+      };
+    }
+  } catch (error) {
+    return {
+      status: 500,
+      message: (error as TypeError).name,
+    };
   }
 }
