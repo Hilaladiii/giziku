@@ -13,26 +13,20 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useToast } from "./ui/use-toast";
-import Link from "next/link";
 import { signUp } from "@/services/userService";
-
-const formSchema = z.object({
-  username: z.string().min(5, "minimum username is 5 characters").max(50),
-  email: z.string().email(),
-  password: z.string().min(8, "minimum password is 8 characters"),
-});
+import { userSchema } from "@/types/userSchema";
 
 export default function RegisterForm() {
   const { toast } = useToast();
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof userSchema>>({
+    resolver: zodResolver(userSchema),
     defaultValues: {
       username: "",
       email: "",
       password: "",
     },
   });
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof userSchema>) {
     const response = await signUp(values);
     toast({
       variant:
