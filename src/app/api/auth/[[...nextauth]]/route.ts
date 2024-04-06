@@ -1,4 +1,5 @@
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
 import NextAuth from "next-auth/next";
 import { NextAuthOptions } from "next-auth";
 import { signIn } from "@/lib/DBService/dbUser";
@@ -6,7 +7,7 @@ import { signIn } from "@/lib/DBService/dbUser";
 export const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
-    maxAge: 30 * 60,
+    maxAge: 1 * 60 * 60,
   },
   secret: process.env.NEXT_AUTH_SECRET,
   providers: [
@@ -26,12 +27,21 @@ export const authOptions: NextAuthOptions = {
         return user;
       },
     }),
+    GoogleProvider({
+      clientId: process.env.NEXT_AUTH_GOOGLE_CLIENT_ID || "",
+      clientSecret: process.env.NEXT_AUTH_GOOGLE_CLIENT_SECRET || "",
+    }),
   ],
   callbacks: {
     async jwt({ token, account, user }) {
       if (account?.provider === "credentials") {
         token.email = user.email;
         token.name = user.username;
+      }
+      if (account?.provider === "google") {
+        token.email = user.email;
+        token.name = user.name;
+        token.picture = user.image;
       }
       return token;
     },
