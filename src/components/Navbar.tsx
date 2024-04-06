@@ -20,9 +20,9 @@ export default function Navbar() {
         <Link href="/my-menu" className="focus:underline">
           My menu
         </Link>
-        <a href="/result" className="focus:underline">
+        <Link href="/result" className="focus:underline">
           Result
-        </a>
+        </Link>
       </div>
       <div className="flex flex-row gap-5 items-center">
         <p>Hello {data?.user?.name || "Guest"}👋</p>
