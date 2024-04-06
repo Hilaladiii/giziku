@@ -10,7 +10,7 @@ export async function getAllMenus({
   const data = await fetch(
     `http://localhost:3000/api/get-menu?query=${query}&page=${page}`,
     {
-      cache: "no-store",
+      cache: "default",
     }
   );
   const menuData = await data.json();
