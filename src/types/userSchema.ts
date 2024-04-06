@@ -1,9 +1,9 @@
 import { z } from "zod";
 
-const userSchema = z.object({
+export const userSchema = z.object({
+  username: z.string().min(5, "minimum username is 5 characters").max(50),
   email: z.string().email(),
-  username: z.string(),
-  password: z.string(),
+  password: z.string().min(8, "minimum password is 8 characters"),
 });
 
 export type userType = z.infer<typeof userSchema>;
