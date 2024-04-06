@@ -8,7 +8,7 @@ export async function getAllMenus({
   query: string;
   page: number;
 }) {
-  const data = await fetch(`${api}/get-menu?query=${query}&page=${page}`, {
+  const data = await fetch(`${api}/api/get-menu?query=${query}&page=${page}`, {
     cache: "default",
   });
   const menuData = await data.json();
