@@ -258,7 +258,6 @@ export async function deleteAllMyMenu({ user }: { user: string }) {
         username: user,
       },
     });
-    console.log(res);
     if (res.count == 0) {
       return {
         status: 400,
@@ -270,7 +269,6 @@ export async function deleteAllMyMenu({ user }: { user: string }) {
       message: "success to delete all menu",
     };
   } catch (error) {
-    console.log(error);
     return {
       status: 500,
       message: (error as TypeError).name,
