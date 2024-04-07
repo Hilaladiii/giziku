@@ -83,7 +83,7 @@ export default function RegisterForm() {
           )}
         />
         <Button type="submit" className="w-full">
-          Register
+          {form.formState.isSubmitting ? "Loading..." : "Register"}
         </Button>
       </form>
     </Form>

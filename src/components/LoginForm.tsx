@@ -87,7 +87,7 @@ export default function LoginForm() {
             )}
           />
           <Button type="submit" className="w-full mb-2">
-            Login
+            {form.formState.isSubmitting ? "Loading..." : "Login"}
           </Button>
         </form>
       </Form>
