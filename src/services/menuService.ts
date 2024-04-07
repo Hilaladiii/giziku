@@ -1,6 +1,6 @@
 import { AddMenuType, NewMenuType } from "@/types/menuSchema";
 
-const api = process.env.API_ROOT;
+const api = process.env.NEXT_PUBLIC_BASE_URL;
 export async function getAllMenus({
   query,
   page,
@@ -8,6 +8,7 @@ export async function getAllMenus({
   query: string;
   page: number;
 }) {
+  console.log(api);
   const data = await fetch(`${api}/api/get-menu?query=${query}&page=${page}`, {
     cache: "default",
   });
@@ -34,6 +35,7 @@ export async function AddMenuByUser(
   };
   const res = await fetch(`${api}/api/add-menu-user`, {
     method: "POST",
+    mode: "no-cors",
     body: JSON.stringify(data),
   });
   return res.json();
