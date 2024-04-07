@@ -9,9 +9,12 @@ export async function getAllMenus({
   page: number;
 }) {
   console.log(api);
-  const data = await fetch(`${api}/api/get-menu?query=${query}&page=${page}`, {
-    cache: "default",
-  });
+  const data = await fetch(
+    `https://giziku.vercel.app/api/get-menu?query=${query}&page=${page}`,
+    {
+      cache: "default",
+    }
+  );
   const menuData = await data.json();
   return menuData;
 }
