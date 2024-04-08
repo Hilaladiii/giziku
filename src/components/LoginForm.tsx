@@ -36,6 +36,7 @@ export default function LoginForm() {
       const response = await signIn<"credentials">("credentials", {
         email,
         password,
+        redirect: false,
       });
       if (response?.status == 401) {
         toast({
