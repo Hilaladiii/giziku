@@ -14,15 +14,15 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { signIn } from "next-auth/react";
 import { toast } from "./ui/use-toast";
-import { useSearchParams } from "next/navigation";
+import { redirect, useSearchParams } from "next/navigation";
 
 const formSchema = z.object({
-  email: z.string().email(),
+  email: z.string().email("email is required"),
   password: z.string().min(8, "minimum password is 8 characters"),
 });
 export default function LoginForm() {
   const getCallback = useSearchParams();
-  const callbackUrl = getCallback.get("callbacks");
+  const callbackUrl = getCallback.get("callbacks") || "";
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -33,19 +33,21 @@ export default function LoginForm() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const { email, password } = values;
     try {
-      const response = await signIn("credentials", {
+      const response = await signIn<"credentials">("credentials", {
         email,
         password,
-        redirect: true,
-        callbackUrl: callbackUrl || "/list-menu",
       });
-      if (response?.status === 401) {
+      if (response?.status == 401) {
         toast({
           variant: "destructive",
-          description: "email or password incorrect",
+          description: "Email or password incorrect",
         });
       }
+      if (response?.ok) {
+        redirect(callbackUrl);
+      }
     } catch (error) {
+      console.log(error);
       toast({
         variant: "destructive",
         description: (error as TypeError).name,
