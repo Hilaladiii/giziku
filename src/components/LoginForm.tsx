@@ -47,7 +47,6 @@ export default function LoginForm() {
         redirect(callbackUrl);
       }
     } catch (error) {
-      console.log(error);
       toast({
         variant: "destructive",
         description: (error as TypeError).name,

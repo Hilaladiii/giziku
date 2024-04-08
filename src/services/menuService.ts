@@ -8,7 +8,6 @@ export async function getAllMenus({
   query: string;
   page: number;
 }) {
-  console.log(api);
   const data = await fetch(
     `https://giziku.vercel.app/api/get-menu?query=${query}&page=${page}`,
     {

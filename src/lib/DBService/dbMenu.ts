@@ -93,7 +93,6 @@ export async function addMenuUser(AddMenuData: AddMenuType[], berat: number[]) {
       message: "Success to create your menu",
     };
   } catch (error) {
-    console.log(error);
     return {
       status: 500,
       message: (error as TypeError).name,

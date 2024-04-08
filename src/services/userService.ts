@@ -14,7 +14,6 @@ export async function signUp(userData: userType) {
       throw new Error(error.message);
     }
     const response = await res.json();
-    console.log(response);
     return response;
   } catch (error) {
     console.error("Error in signUp:", error);
