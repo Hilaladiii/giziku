@@ -14,7 +14,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { signIn } from "next-auth/react";
 import { toast } from "./ui/use-toast";
-import { redirect, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   email: z.string().email("email is required"),
@@ -23,6 +24,7 @@ const formSchema = z.object({
 export default function LoginForm() {
   const getCallback = useSearchParams();
   const callbackUrl = getCallback.get("callbacks") || "";
+  const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -45,7 +47,7 @@ export default function LoginForm() {
         });
       }
       if (response?.ok) {
-        redirect(callbackUrl);
+        router.push(callbackUrl || "/list-menu");
       }
     } catch (error) {
       toast({
