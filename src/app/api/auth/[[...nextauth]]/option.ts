@@ -1,6 +1,5 @@
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
-import NextAuth from "next-auth/next";
 import { NextAuthOptions } from "next-auth";
 import { signIn, signInWithGoogle } from "@/lib/DBService/dbUser";
 
