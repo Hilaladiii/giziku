@@ -2,7 +2,13 @@ import MenuTable from "@/components/MenuTable";
 import Search from "@/components/Search";
 import Pagination from "@/components/Pagination";
 import { getMenuPages } from "@/lib/DBService/dbMenu";
+import { Metadata } from "next";
 
+export const metadata: Metadata = {
+  title: "Menu List",
+  description: "A list of available menu options to create your menu.",
+  keywords: ["menu", "list", "options"],
+};
 export default async function MenuPage({
   searchParams,
 }: {
