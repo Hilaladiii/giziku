@@ -14,6 +14,7 @@ export default async function Home() {
           alt="health-food picture"
           width={400}
           height={400}
+          priority
         />
         <div>
           <h1 className="text-3xl font-bold">Giziku for nutrition student</h1>
