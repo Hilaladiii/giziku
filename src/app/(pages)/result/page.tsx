@@ -15,7 +15,13 @@ import {
   ButtonServerActionDeleteAllMenu,
   ButtonServerActionDeleteMenu,
 } from "@/components/ButtonServerAction";
+import { Metadata } from "next";
 
+export const metadata: Metadata = {
+  title: "Result Calculation Menu",
+  description: "your selection of menu options to calculate results.",
+  keywords: ["result", "calculation", "menu", "options"],
+};
 export default async function ResultPage() {
   const session = await getServerSession(authOptions);
   const user = session?.user?.name || "";
