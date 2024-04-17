@@ -2,9 +2,11 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 import { Button } from "./ui/button";
 import Link from "next/link";
+import { useMenuUser } from "@/contexts/MenuUserContext";
 
 export default function Navbar() {
   const { status, data } = useSession();
+  const menuUser = useMenuUser();
   return (
     <nav className="w-full h-20 bg-zinc-900 text-white flex flex-row justify-between items-center px-10 py-3">
       <Link href="/" className="text-lg font-semibold">
@@ -17,9 +19,12 @@ export default function Navbar() {
         <Link href="/list-menu" className="focus:underline">
           List Menu
         </Link>
-        <Link href="/my-menu" className="focus:underline">
-          My menu
-        </Link>
+        <div>
+          <Link href="/my-menu" className="focus:underline">
+            My menu
+          </Link>
+          <span>{menuUser.length > 0 && ` (${menuUser.length})`}</span>
+        </div>
         <Link href="/result" className="focus:underline">
           Result
         </Link>
